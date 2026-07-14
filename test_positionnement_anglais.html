@@ -270,6 +270,18 @@ function showResult(){
     message: "Score : " + score + "/35\nNiveau : " + title + " (" + level + ")\nRaison : " + raison + "\nFréquence d'utilisation : " + contact + "\nTemps disponible : " + temps,
     time: new Date().toLocaleString('fr-FR')
   }).catch(()=>{});
+
+  // Envoi automatique vers Systeme.io (via relais sécurisé Google Apps Script)
+  fetch("https://script.google.com/macros/s/AKfycbwPKd0xvoIjt8rrK7hJsIZcTPlNmN8juohS1Eyc0kBU6dH8rx2djIeDzTk_V6nMmMeq/exec", {
+    method: "POST",
+    headers: { "Content-Type": "text/plain" },
+    body: JSON.stringify({
+      prenom: prenom,
+      email: email,
+      score: score,
+      profil: title
+    })
+  }).catch(()=>{});
 }
 </script>
 </body></html>
